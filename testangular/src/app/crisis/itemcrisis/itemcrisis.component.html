@@ -1,0 +1,45 @@
+<li class="list-group-item" (click)="selectCrisis()" style="margin-bottom: 10px;">
+    <div class="row">
+        <div class="col-1" style="padding: 0 auto;display: flex;">
+            <!-- Image -->
+            <img src="{{ crisis.pathToImage }}" class="img-fluid" alt="image" style="width:92px;height: 92px;">
+        </div>
+        <div class="col-1" style="width:45%;color:#2389bf;padding: 0px;">
+            <!-- Titre -->
+            <h4>{{ crisis.title }}</h4>
+            <!-- Description -->
+            <!-- <p>{{ crisis.objective }}</p> -->
+            <h5>{{ crisis.objective }}</h5>
+            <p class="description">{{ crisis.description }}</p>
+
+        </div>
+        <div class="col-1" style="width: 5px;">
+            <!-- Séparateur vertical -->
+            <div class="vertical-separator"></div>
+        </div>
+
+        <div class="col" style="position: left;color:#2389bf;">
+            <!-- Petit texte -->
+            <div style="display:flex;align-items: baseline;">
+                <h5 style="font-size: 18px;display:flex;flex:1;margin-right: 0px;">Status de la crise : </h5>
+                <p style="font-size: 16px;color: red;display:flex;margin-left: 0px;"> {{ crisis.status
+                    }} </p>
+            </div>
+            <p> Début de crise : {{ crisis.startdate| date: 'dd/MM/yyyy' }} </p>
+            <p> localisée à : {{crisis.localisation}} </p>
+        </div>
+        <div class="col-1" style="width: 5px;">
+            <!-- Séparateur vertical -->
+            <div class="vertical-separator"></div>
+        </div>
+        <div class="col" style="color:#2389bf">
+            <!-- Petit texte -->
+            <p> X participants</p>
+            <p *ngIf="crisis.pathToFiles"> {{crisis.pathToFiles.length}} documents </p>
+            <p> Z réunions </p>
+
+        </div>
+
+
+    </div>
+</li>

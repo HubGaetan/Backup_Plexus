@@ -1,0 +1,136 @@
+.container {
+    display: flex;
+    background-color: white;
+}
+
+.left-panel {
+    flex: 1;
+    // border: 1px solid black;
+    // padding: 10px;
+    text-align: center;
+    align-items: center;
+    max-width: 90%;
+
+}
+
+.text-secondary {
+    color: #707e89;
+}
+
+.header-left {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+
+}
+
+
+.bx {
+    font-size: 40px;
+    opacity: 0.65;
+}
+
+
+.right-panel {
+    flex: 1;
+    // border: 1px solid black;
+    // padding: 10px;
+    text-align: center;
+    align-items: center;
+    max-width: 90%;
+
+}
+
+.vertical-separator {
+    position: relative;
+    /* Permet d'utiliser la position absolue pour le cercle */
+    width: 5px;
+    /* Largeur du trait de séparation */
+    height: auto;
+    /* Hauteur égale à la hauteur de la div parent */
+    background-color: #000000;
+    /* Couleur du trait de séparation */
+    margin-left: 10px;
+    /* Marge à gauche pour l'espace entre les colonnes */
+    margin-right: 10px;
+    /* Marge à droite pour l'espace entre les colonnes */
+}
+
+.vertical-separator::after {
+    content: '';
+    /* Contenu vide nécessaire pour créer l'élément pseudo-élément */
+    position: absolute;
+    /* Position absolue par rapport au parent .vertical-separator */
+    top: 50%;
+    /* Positionnement vertical au milieu de .vertical-separator */
+    left: 50%;
+    /* Positionnement horizontal au milieu de .vertical-separator */
+    transform: translate(-50%, -50%);
+    /* Déplacer le cercle au centre de .vertical-separator */
+    width: 30px;
+    /* Diamètre du cercle */
+    height: 30px;
+    /* Diamètre du cercle */
+    border-radius: 50%;
+    /* Rendre le cercle arrondi */
+    background-color: #000000;
+    /* Couleur du cercle */
+}
+
+.card {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    /* Ombre portée avec une légère transparence */
+}
+
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: black 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.664);
+    background-color: rgb(35, 35, 150);
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+
+.member-box {
+
+    width: 90%;
+
+    padding-bottom: 10px;
+    padding-top: 20px;
+    display: flex;
+    margin-left: 30px;
+    /* Ajout */
+    // justify-content: space-between;
+    /* Ajout */
+}
+
+.member-idcard {
+    flex: 1;
+}
+
+.message-date {
+    display: flex;
+    text-align: right;
+    align-items: end;
+    justify-content: flex-end;
+}
+
+.spacer {
+    flex-grow: 1;
+    /* Espace flexible pour pousser la date tout à droite */
+}
+
+.bx-plus-circle {
+    align-items: baseline;
+    font-size: 30px;
+    margin-right: 10px;
+    margin-left: 10px;
+}

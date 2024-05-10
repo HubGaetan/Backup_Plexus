@@ -1,0 +1,261 @@
+<div class="container" style="max-width: 100%;padding-top: 20px;">
+    <div class="left-panel">
+        <div class="header-left">
+            <i class="bx bx-volume-full"></i>
+            <h3 class="text-secondary">Evènements</h3>
+        </div>
+        <div>
+            <button class="btn btn-primary"
+                style="background-color: #2389BF;font-size: 20px;box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);margin-left: 10px;"
+                (click)="toggleEventForm()">Ajouter un
+                événement <i class="bx bx-plus-circle"></i></button>
+        </div>
+
+        <div *ngIf="eventFormVisible"
+            style="border: 1px solid rgb(50, 34, 107);box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);margin-top: 20px;background-color: #2389BF;border-radius: 5px;">
+
+            <div style="margin-top: 20px;margin-bottom: 20px;text-align: left;height:50px">
+                <label for="evtId"
+                    style="color: white;font-size: 30px;margin-left: 20px;margin-right: 20px;">Titre:</label>
+                <input style="width: 80%;font-size: 20px;height:50px;border-radius: 5px;" id="evtId" type="text"
+                    placeholder="Titre de l'événement" [(ngModel)]="messagetitle">
+            </div>
+            <div
+                style="background-color: white; height:200px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;">
+                <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+            </div>
+            <div style="display:flexbox ;align-items: right;text-align: right;padding-right:10px;padding-bottom: 10px;">
+                <button class="btn btn-primary" style="background-color: lightgray; color:gray; padding-right:10px"
+                    (click)="toggleEventForm()">Annuler</button>
+                <button class="btn btn-primary"
+                    style="background-color: rgb(255, 255, 255); color:#2389BF;border:0px; padding-right:10px"
+                    (click)="messageAdd(htmlContent,messagetitle,true)">Envoyer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="header-left">
+            <i class="bx bx-message-alt-detail"></i>
+            <h3 class="text-secondary">Messages</h3>
+        </div>
+        <div>
+            <button class="btn btn-primary"
+                style="background-color: #F6F6F6;color:black;font-size: 20px;border: 1px solid rgb(80, 77, 77);box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);"
+                (click)="toggleMessageForm()">Ajouter un
+                message <i class="bx bx-plus-circle"></i></button>
+        </div>
+
+        <div *ngIf="messageFormVisible"
+            style="border: 1px solid rgb(50, 34, 107);box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);margin-top: 20px;background-color: #F6F6F6;border-radius: 5px;">
+
+            <div style="margin-top: 20px;margin-bottom: 20px;text-align: left;height:50px">
+                <label for="evtId"
+                    style="color: grey;font-size: 30px;margin-left: 20px;margin-right: 20px;">Titre:</label>
+                <input style="width: 80%;font-size: 20px;height:50px;border-radius: 5px;" id="evtId" type="text"
+                    placeholder="Titre du message" [(ngModel)]="messagetitle">
+            </div>
+            <div
+                style="background-color: white; height:200px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;">
+                <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+            </div>
+            <div style="display:flexbox ;align-items: right;text-align: right;padding-right:10px;padding-bottom: 10px;">
+                <button class="btn btn-primary" style="background-color: lightgray; color:gray; padding-right:10px"
+                    (click)="toggleMessageForm()">Annuler</button>
+                <button class="btn btn-primary"
+                    style="background-color: rgb(255, 255, 255); color:#2389BF;border:0px; padding-right:10px"
+                    (click)="messageAdd(htmlContent,messagetitle,false)">Envoyer</button>
+            </div>
+        </div>
+        <!-- <div *ngIf="messageFormVisible">
+
+            <div>
+                <input type="text" placeholder="Titre du message" [(ngModel)]="messagetitle">
+            </div>
+            <div>
+                <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+            </div>
+            <button class="btn btn-primary" (click)="messageAdd(htmlContent,messagetitle,false)">Envoyer</button>
+        </div> -->
+
+
+    </div>
+
+
+
+</div>
+<!-- 
+<div class="container" *ngFor="let message of messagesCrisis">
+    <div *ngIf="message.isevent">
+
+        <div class="left-panel">
+            <H2>{{message.title}}</H2>
+            <p>{{message.content}}</p>
+        </div>
+
+        <div class="vertical-separator"></div>
+        <div class="right-panel">
+            {{message.messagedate}}
+        </div>
+    </div>
+
+    <div *ngIf="!message.isevent">
+
+        <div class="left-panel">
+            {{message.messagedate}}
+
+        </div>
+
+        <div class="vertical-separator"></div>
+        <div class="right-panel">
+            <H2>{{message.title}}</H2>
+            <p>{{message.content}}</p>
+        </div>
+    </div>
+
+</div> -->
+
+<div style="height: 75px; background-color: white;"></div>
+
+<div class="container2">
+
+    <div class="row" width="100%">
+        <div class="left-panel">
+        </div>
+        <div class="vertical-separator" style="padding-right:0;padding-left:0;background-color: #2389BF;"></div>
+        <!-- Trait de séparation -->
+        <div class="right-panel">
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="container2" style="background-color: white;" *ngFor="let message of messagesCrisis">
+
+    <div class="row" width="100%" *ngIf="message.isevent">
+        <div class="left-panel">
+            <div class="member-box">
+                <div class="circle">
+                    {{generateInitials(message.members.firstname,message.members.name)}}
+
+                </div>
+                <span class="member-info">
+                    <h5>{{ message.members.firstname }} {{ message.members.name }}</h5>
+                </span>
+                <span class="spacer"></span> <!-- Espacement flexible -->
+                <span class="message-date">
+                    {{ message.messagedate | date: 'dd/MM/yyyy HH:mm' }}
+                </span>
+            </div>
+
+
+            <div class="card text-white" style="width: 90%;margin-left: 30px;background-color: #2389BF; ">
+                <div class="card-body text-right" style="text-align: left;">
+                    <h5 class="card-title">{{message.title}}</h5>
+                    <div [innerHTML]="message.content"></div>
+                    <!-- <p class="card-text">{{message.content}}</p> -->
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="vertical-separator" style="padding-right:0;padding-left:0"></div> <!-- Trait de séparation -->
+        <div class="right-panel">
+
+        </div>
+
+    </div>
+
+    <div class="row" width="100%" *ngIf="!message.isevent">
+        <div class="left-panel">
+
+        </div>
+
+        <div class="vertical-separator" style="padding-right:0;padding-left:0"></div> <!-- Trait de séparation -->
+
+        <div class="right-panel" style="align-items: center ;text-align: center;flex:1;">
+
+
+
+            <div class="member-box">
+                <div class="circle">
+                    {{generateInitials(message.members.firstname,message.members.name)}}
+                </div>
+                <span class="member-info">
+                    <h5>{{ message.members.firstname }} {{ message.members.name }}</h5>
+                </span>
+                <span class="spacer"></span> <!-- Espacement flexible -->
+                <span class="message-date">
+                    {{ message.messagedate | date: 'dd/MM/yyyy HH:mm' }}
+                </span>
+            </div>
+
+            <div class="card" style="width: 90%;margin-left: 30px;background-color: #F6F6F6;">
+                <div class="card-body" style="text-align: left;">
+                    <h5 class="card-title">{{message.title}}</h5>
+                    <div [innerHTML]="message.content"></div>
+
+                    <!-- <p class="card-text">{{message.content}}</p> -->
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<!-- 
+<div>CACAACACAC</div>
+<div *ngFor="let message of messages">
+    {{message.title}}
+    {{message.content}}
+    {{message.messagedate}}
+    {{message.isevent}}
+</div>
+<div> ACACACACAACACCACACAC</div>
+<div *ngFor="let message of messagesCrisis">
+    {{message.title}}
+    {{message.content}}
+    {{message.messagedate}}
+    {{message.isevent}}
+</div>
+ -->
+
+<!-- 
+<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+    <ng-template pTemplate="marker" let-event>
+        <span class="custom-marker shadow-2" [style.backgroundColor]="event.color">
+            <i [ngClass]="event.icon"></i>
+        </span>
+    </ng-template>
+    <ng-template pTemplate="content" let-event>
+        <p-card [header]="event.status" [subheader]="event.date">
+            <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image"
+                [alt]="event.name" width="200" class="shadow-2" />
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+                numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis
+                esse, cupiditate
+                neque quas!
+            </p>
+            <button pButton label="Read more" class="p-button-text"></button>
+        </p-card>
+    </ng-template>
+</p-timeline>
+ -->
+
+<!-- 
+
+<div style="width:500;height:200;">
+    <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+</div>
+<h2> VOICI LE TEXTE DU WIZI : </h2>
+{{htmlContent}}
+<button (click)="messageAdd(htmlContent)" class="btn btn-primary"> envoyer le message </button> -->

@@ -1,0 +1,101 @@
+<!-- <div class="team-container">
+    <div class="team-header">
+
+        <i class="bx bx-group"></i>
+        <h3 class="text-secondary">Membres</h3>
+
+        <div class="search-field">
+            <input type="text" placeholder="Rechercher parmi les membres" class="form-control">
+            <button type="submit">
+                <i class="bx bx-search-alt"></i>
+            </button>
+        </div>
+        <button (click)="openModal()" title="Ajouter un membre" class="btn btn-primary">
+            <i class="bx bx-user-plus"></i>
+        </button>
+    </div> -->
+<div class="team-container">
+    <div class="team-header">
+        <div class="header-left">
+            <i class="bx bx-group"></i>
+            <h3 class="text-secondary">Membres</h3>
+        </div>
+        <div class="search-field">
+            <input type="text" placeholder="Rechercher parmi les membres" class="form-control">
+            <i class="bx bx-search-alt"></i>
+        </div>
+        <button (click)="openModal()" title="Ajouter un membre" class="btn btn-primary">
+            <i class="bx bx-user-plus"></i>
+        </button>
+    </div>
+
+    <div> </div>
+    <div class="team-members">
+        <div class="column">
+            <ng-container *ngFor="let teammember of teammembers; let i = index;">
+                <div class="member-box" [ngClass]="{'left-column': i % 2 === 0, 'right-column': i % 2 !== 0}">
+                    <div class="circle">
+                        {{ generateInitials(teammember.firstname, teammember.name) }}
+                    </div>
+                    <span class="member-info">
+                        <h5>{{ teammember.firstname }} {{ teammember.name }}</h5>
+                    </span>
+                    <span class="remove-suggestion" (click)="removeRelation(teammember)">
+                        <i class="bx bx-x"></i>
+                    </span>
+
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+
+    <!-- Modale -->
+    <div class="modal" [style.display]="modalOpen ? 'block' : 'none'">
+        <div class="modal-content">
+            <span class="close" (click)="closeModal()"><i class="bx bx-x"></i></span>
+
+            <div>
+                <h2>Ajouter un membre à la liste</h2>
+            </div>
+            <div class="search-field">
+                <input type="text" placeholder="Recherche...">
+            </div>
+            <table class="table">
+                <!-- Entêtes de colonnes -->
+                <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <!-- Contenu du tableau -->
+                <tbody>
+                    <tr *ngFor="let member of remainingMembers"> <!-- Modifier cette ligne -->
+                        <td>{{ member.firstname }}</td>
+                        <td>{{ member.name }}</td>
+                        <td>
+                            <button (click)="addMember(member)">Ajouter</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 
+<div class="card" *ngFor="let member of memberlist">
+    <li> {{member.firstname}}/ {{member.name}} / {{member.speciality}} </li>
+</div>
+
+<div class="card" *ngFor="let crisisunit of crisisunitlist">
+    <li> {{crisisunit.membersId}}/ {{crisisunit.membersId}} / {{crisisunit.isreferent}} </li>
+</div>
+<div *ngFor="let teammember of teammembers">
+    <span class="selected-suggestion">{{teammember.firstname}} {{teammember.name}}
+        <span class="remove-suggestion" style="background-color: transparent; border: none; cursor: pointer;"><i
+                class="bx bx-x"></i></span>
+    </span>
+
+</div> -->

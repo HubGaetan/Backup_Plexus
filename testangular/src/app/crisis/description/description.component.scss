@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+}
+
+.left-panel {
+    flex: 1;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.right-panel {
+    flex: 1;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.sub-div {
+    height: 100px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    /* Effet d'ombre à droite et en bas */
+    margin-bottom: 20px;
+    /* Espacement entre les sous-div */
+}

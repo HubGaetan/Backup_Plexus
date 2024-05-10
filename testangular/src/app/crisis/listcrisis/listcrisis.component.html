@@ -1,0 +1,8 @@
+<ol class="list-group">
+
+    <app-itemcrisis *ngFor="let crisis of crisislist" (selectedCrisis)="selectCrisis($event)" [crisis]="crisis"
+        (click)="moreInfo(crisis.crisis_id)"></app-itemcrisis>
+    <!-- 
+    <app-itemcrisis (selectedCrisis)="selectCrisis($event)" [crisis]="crisislist[0]"></app-itemcrisis>
+    <app-itemcrisis (selectedCrisis)="selectCrisis($event)" [crisis]="crisislist[1]"></app-itemcrisis> -->
+</ol>

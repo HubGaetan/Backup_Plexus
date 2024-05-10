@@ -1,0 +1,63 @@
+.nav-pills .nav-link {
+    background-color: #f8f9fa;
+    color: #2389BF;
+    border-radius: 0;
+    // border: 1px solid black;
+    flex: 1;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #2389BF;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.nav-pills .nav-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: 500;
+    border-radius: 5px;
+    font-family: 'arial';
+}
+
+
+
+// .nav-pills .nav-link {
+//     background-color: #f8f9fa;
+//     /* Couleur de fond par défaut */
+//     color: #000000;
+//     /* Couleur du texte */
+//     border-radius: 0;
+//     border: 1px;
+//     /* Supprimer les coins arrondis */
+//     flex: 1;
+//     text-align: center;
+// }
+
+// .nav-pills .nav-link.active {
+//     background-color: #2389BF;
+//     /* Couleur de fond lorsque le bouton est actif */
+//     color: #ffffff;
+//     border: 1px solid black;
+//     /* Couleur du texte lorsque le bouton est actif */
+//     flex: 1;
+//     text-align: center;
+
+// }
+
+// .nav-pills {
+//     display: flex;
+//     /* Utilisation de Flexbox pour aligner les éléments */
+//     flex-wrap: nowrap;
+//     /* Empêcher les éléments de se casser sur plusieurs lignes */
+//     width: 100%;
+//     /* Prendre toute la largeur disponible */
+//     justify-content: space-between;
+//     border: 1px solid black;
+
+// }

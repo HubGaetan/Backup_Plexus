@@ -1,0 +1,17 @@
+.vertical-separator {
+    border-left: 1px solid #3f3f3f;
+    height: 100%;
+    width: 5px;
+}
+
+
+.description {
+    font-size: 12px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Nombre de lignes à afficher */
+    -webkit-box-orient: vertical;
+    margin-right: 20px;
+    color: #3f3f3f;
+}

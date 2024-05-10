@@ -1,0 +1,162 @@
+<div class="row"
+    style="background-color: white;width:100%;border-radius:10px;align-items: center;position: relative;display:flex;justify-content:center;margin:0 auto">
+    <div class="col-2" style="width: 160px;">
+        <!-- Image -->
+        <img src="{{ crisis.pathToImage }}" class="img-fluid" alt="image" style="margin-left: 20px;">
+    </div>
+
+    <div class="col" style="width:100%;">
+        <div class="containerbanner">
+            <div class="headerbanner">
+                <h2 style="color:#2389bf;">{{ crisis.title }}</h2>
+            </div>
+            <div class="contentbanner">
+                <div class="columnbanner">
+                    <span style="display: flex;">
+                        <i class="bx bx-user"></i>
+                        <p> {{totalMembers}} participants</p>
+                    </span>
+
+                </div>
+                <div class="columnbanner">
+                    <span style="display: flex;">
+                        <i class="bx bx-calendar"></i>
+                        <p> Y Réunions</p>
+                    </span>
+                </div>
+                <div class="columnbanner">
+                    <span style="display: flex;">
+                        <i class="bx bx-file"></i>
+                        <p *ngIf="crisis.pathToFiles"> {{crisis.pathToFiles.length}} Documents</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-1" style="width: 150px;">
+        <!-- Séparateur vertical -->
+        <div class="vertical-separator"></div>
+    </div>
+    <div class="col" style="position:relative;color:#2389bf">
+        <!-- Petit texte -->
+        <span style="display: flex;">
+            <h5>Status de la crise : </h5>
+            <p style="color: red;margin-left: 5px;font-weight: bold;"> {{crisis.status}} </p>
+        </span>
+        <p> Début de crise : {{ crisis.startdate | date: 'dd/MM/yyyy HH:mm' }} </p>
+        <p> localisée à : {{crisis.localisation}} </p>
+    </div>
+    <div class="col-1" style="width: 5px;">
+        <!-- Séparateur vertical -->
+        <div class="vertical-separator"></div>
+    </div>
+    <!-- <div class="col" style="padding-left: 10px;">
+        
+        <p> X parcicipants</p>
+        <p> Y documents </p>
+        <p> Z réunions </p>
+
+    </div> -->
+
+    <div class="col">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="true">
+                Modifier
+            </button>
+            <ul class="dropdown-menu">
+                <!-- <li><a class="dropdown-item" (click)="updateCrisis()">Modifier</a></li> -->
+                <li><a class="dropdown-item" (click)="updateModal()">Modifier</a></li>
+                <li><a class="dropdown-item" (click)="openModal()">Supprimer</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="modal" [style.display]="modalOpen ? 'block' : 'none'">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Suppression de la crise</h2>
+            <span class="close" (click)="closeModal()"><i class="bx bx-x"></i></span>
+        </div>
+        <div class="modal-body">
+            <h5>Voulez-vous vraiment supprimer cette crise ?</h5>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+            <button class="btn btn-danger" (click)="deleteCrisis()">Supprimer</button>
+        </div>
+    </div>
+</div>
+
+<!-- 
+crisis_id	
+title	
+pathToImage	
+objective	
+description	
+startdate	
+enddate	
+status	
+localisation	
+pathToFiles -->
+
+<div class="modal" [style.display]="modalUpdate ? 'block' : 'none'">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Modification de la crise</h2>
+            <span class="close" (click)="closeupdateModal()"><i class="bx bx-x"></i></span>
+        </div>
+        <div class="modal-body">
+            <h5>Voulez-vous vraiment modifier cette crise ?</h5>
+        </div>
+
+        <form #crisisform="ngForm">
+            <label for="title"> Titre :</label>
+            <input id="title" type="text" ngModel name="title" class="form-control" [(ngModel)]="crisis.title">
+            <label for="pathToImage"> Ajouter une image :</label>
+            <input id="pathToImage" type="text" ngModel name="pathToImage" class="form-control"
+                [(ngModel)]="crisis.pathToImage">
+            <label for="objective"> Objectif :</label>
+            <input id="objective" type="text" ngModel name="objective" class="form-control"
+                [(ngModel)]="crisis.objective">
+            <label for="description"> Objectif :</label>
+            <input id="description" type="text" ngModel name="description" class="form-control"
+                [(ngModel)]="crisis.description">
+
+
+            <label for="startdate"> Date de debut </label>
+            <input id="startdate" type="date" ngModel name="startdate" class="form-control"
+                [(ngModel)]="crisis.startdate">
+
+            <label for="enddate"> Date de fin</label>
+            <input id="enddate" type="date" ngModel name="enddate" class="form-control" [(ngModel)]="crisis.enddate">
+
+            <!-- <label for="status"> Status de la crise </label>
+            <input id="status" type="text" ngModel name="status" class="form-control" [(ngModel)]="crisis.status"> -->
+            <label for="status"> Status de la crise </label>
+            <select class="form-select" aria-label="Status de la crise" [(ngModel)]="crisis.status" name="status"
+                id="status">
+                <option [ngValue]="'en préparation'">En préparation</option>
+                <option [ngValue]="'déclenchée'">Déclenchée</option>
+                <option [ngValue]="'en cours'">En cours</option>
+                <option [ngValue]="'terminée'">Terminée</option>
+            </select>
+
+            <label for="localisation"> Localisations: </label>
+            <input id="localisation" type="string[]" ngModel name="localisation" class="form-control"
+                [(ngModel)]="crisis.localisation">
+
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="closeupdateModal()">Annuler</button>
+                <button (click)="updateCrisis(crisisform)" class="btn btn-primary">Modifier</button>
+            </div>
+        </form>
+
+    </div>
+</div>

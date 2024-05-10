@@ -1,0 +1,30 @@
+<form #crisisform="ngForm">
+    <label for="title"> Titre </label>
+    <input id="title" type="text" ngModel name="title" class="form-control">
+
+    <label for="pathToImage"> Chemin d'accès au fichier image </label>
+    <input id="pathToImage" type="text" ngModel name="pathToImage" class="form-control">
+
+    <label for="objective"> Objectifs </label>
+    <input id="objective" type="text" ngModel name="objective" class="form-control">
+
+    <label for="description"> Description </label>
+    <input id="description" type="text" ngModel name="description" class="form-control">
+
+    <label for="startdate"> Date de debut </label>
+    <input id="startdate" type="date" ngModel name="startdate" class="form-control">
+
+    <label for="enddate"> Date de fin</label>
+    <input id="enddate" type="date" ngModel name="enddate" class="form-control">
+
+    <label for="status"> Status de la crise </label>
+    <input id="status" type="text" ngModel name="status" class="form-control">
+
+    <label for="localisation"> Localisations: </label>
+    <input id="localisation" type="string[]" ngModel name="localisation" class="form-control">
+
+    <label for="pathToFiles"> Chemin d'accès au fichier : </label>
+    <input id="pathToFiles" type="string[]" ngModel name="pathToFiles" class="form-control">
+
+    <button (click)="addCrisis(crisisform)" class="btn btn-primary">Enregistrer</button>
+</form>

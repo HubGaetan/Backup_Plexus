@@ -1,0 +1,8 @@
+<form #crisisform="ngForm">
+    <label for="title"> Titre </label>
+    <input id="title" type="text" ngModel name="title" class="form-control" [(ngModel)]="crisisold.title">
+    <label for="pathToImage"> Chemin d'accès au fichier image </label>
+    <input id="pathToImage" type="text" ngModel name="pathToImage" class="form-control"
+        [(ngModel)]="crisisold.pathToImage">
+    <button (click)="updateCrisis(crisisform)" class="btn btn-primary">Modifier</button>
+</form>

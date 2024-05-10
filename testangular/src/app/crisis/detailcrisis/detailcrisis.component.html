@@ -1,0 +1,38 @@
+<div *ngIf="crisis" style="background-color: #EEEEEE;">
+
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 style="margin-bottom: 2px;"> Gestion de crise </h4>
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ms-auto">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Plexus</a></li>
+                <li class="breadcrumb-item"><a href="/">Gestion de crise</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{crisis.title}}</li>
+            </ol>
+        </nav>
+    </div>
+    <div style="justify-content: space-evenly;margin: auto;padding: auto;">
+        <app-banner-detailcrisis [crisis]="crisis" [totalMembers]="totalMembers"></app-banner-detailcrisis>
+    </div>
+    <div class="row">
+        <app-detailtabs [tabsArray]="tabs" (onTabChange)="tabChange($event)"></app-detailtabs>
+    </div>
+
+    <div class="row">
+
+        <div *ngIf="activatedTabIndex==0">
+            <app-description [crisis_id]="crisis.crisis_id"
+                (totalMembersEvent)="onTotalMembers($event)"></app-description>
+        </div>
+        <div *ngIf="activatedTabIndex==1">
+            <H1> RESSOURCES CARTOGRAPHIQUES </H1>
+            <div>
+                <!-- Image -->
+                <img src="assets/images/Plexuscarto.png" class="img-fluid" alt="image">
+            </div>
+        </div>
+        <div *ngIf="activatedTabIndex==2">
+
+            <app-main-courante [crisis_id]="crisis.crisis_id"></app-main-courante>
+        </div>
+    </div>
+</div>
