@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { crisismodel } from '../../model/crisismodel';
 
 @Component({
   selector: 'app-detail-info',
@@ -7,6 +8,16 @@ import { Component } from '@angular/core';
   templateUrl: './detail-info.component.html',
   styleUrl: './detail-info.component.scss'
 })
-export class DetailInfoComponent {
+export class DetailInfoComponent implements OnInit {
+  @Input() crisis_id: number;
+  @Input() crisis: crisismodel;
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(): void {
+    console.log('CRISISSS', this.crisis)
+  }
 
 }
