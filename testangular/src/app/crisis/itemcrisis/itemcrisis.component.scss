@@ -1,17 +1,80 @@
-.vertical-separator {
-    border-left: 1px solid #3f3f3f;
-    height: 100%;
-    width: 5px;
+.list-group-item {
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
 }
 
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items:center;
+    min-height: 200px;
+    max-height: 200px;
+    min-width: 100%;
+    max-width: 100%;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.img-fuild {
+    width: 100%;
+    height: 200px;
+}
+
+p {
+    font-size: 16px;
+}
+
+.img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    height: 200px;
+}
+
+.detailcrisis {
+    width:40%;
+    height: 200px;
+    color:#2389bf;
+    padding: 10px 30px 10px 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
 
 .description {
     font-size: 12px;
     overflow: hidden;
-    display: -webkit-box;
     -webkit-line-clamp: 2;
     /* Nombre de lignes à afficher */
     -webkit-box-orient: vertical;
-    margin-right: 20px;
     color: #3f3f3f;
 }
+
+.statuscrisis {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 25%;
+    height: 200px;
+    padding: 10px 30px 10px 30px;
+    color:#2389bf;
+    border-left: 1px solid #838c91;
+
+}
+
+.crisisstatus {
+    display:flex;
+    font-size: 20px;
+}
+
+.participants-meeting {
+    width: 25%;
+    height: 200px;
+    padding: 10px 10px 10px 30px;
+    color:#2389bf;
+    border-left: 1px solid #838c91;
+}
+
