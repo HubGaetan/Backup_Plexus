@@ -27,7 +27,7 @@ export class HomecrisisComponent implements OnInit {
   modalOpen: boolean = false;
 
   constructor(private crisisService: CrisisService, private router: Router) {
-    this.selectedCrisis = new crisismodel(0, '', '', '', '', '', '', '', [], []);
+    this.selectedCrisis = new crisismodel(0, '', '', '', '', '', '', '', '', []);
 
 
 
@@ -58,8 +58,13 @@ export class HomecrisisComponent implements OnInit {
 
 
   addCrisis(form: NgForm) {
-    form.value.localisation = [form.value.localisation];
-    // form.value.pathToFiles = [form.value.pathToFiles];
+    console.log('FORM NIA', form.value);
+    if (form.value.startdate === '') {
+      form.value.startdate = new Date().toISOString().split('T')[0];
+    }
+    if (form.value.enddate === '') {
+      form.value.enddate = new Date().toISOString().split('T')[0];
+    }
     console.log('FORM NIA', form.value);
 
     this.crisisService.addCrisis(form.value).subscribe({

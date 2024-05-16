@@ -20,7 +20,7 @@
     <div class="row">
 
         <div *ngIf="activatedTabIndex==0">
-            <app-description [crisis_id]="crisis.crisis_id"
+            <app-description [crisis_id]="crisis.crisis_id" [crisis]="crisis"
                 (totalMembersEvent)="onTotalMembers($event)"></app-description>
         </div>
         <div *ngIf="activatedTabIndex==1">

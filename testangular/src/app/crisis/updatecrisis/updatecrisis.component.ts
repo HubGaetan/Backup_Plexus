@@ -16,7 +16,7 @@ export class UpdatecrisisComponent {
   crisisold: crisismodel;
   constructor(private crisisService: CrisisService, private router: Router, private activatedRoute: ActivatedRoute
   ) {
-    this.crisisold = new crisismodel(0, '', '', '', '', '', '', '', [], []);
+    this.crisisold = new crisismodel(0, '', '', '', '', '', '', '', '', []);
 
 
     this.activatedRoute.params.subscribe(

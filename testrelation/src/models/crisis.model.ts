@@ -1,6 +1,7 @@
 import { Entity, model, property, hasMany } from '@loopback/repository';
 import { Crisisunit } from './crisisunit.model';
-import {Incidentbook} from './incidentbook.model';
+import { Incidentbook } from './incidentbook.model';
+import {Meetings} from './meetings.model';
 
 @model()
 export class Crisis extends Entity {
@@ -31,19 +32,31 @@ export class Crisis extends Entity {
   })
   description?: string;
 
+
+  // @property({
+  //   type: 'date',
+  //   jsonSchema: {
+  //     format: 'date'
+  //   }
+  // })
+  // startdate?: string;
+  @hasMany(() => Meetings)
+  meetings: Meetings[];
+  // @property({
+  //   type: 'date',
+  //   jsonSchema: {
+  //     format: 'date'
+  //   }
+  // })
+  // enddate?: string;
+
   @property({
-    type: 'date',
-    jsonSchema: {
-      format: 'date'
-    }
+    type: 'string',
   })
   startdate?: string;
 
   @property({
-    type: 'date',
-    jsonSchema: {
-      format: 'date'
-    }
+    type: 'string',
   })
   enddate?: string;
 
@@ -54,10 +67,9 @@ export class Crisis extends Entity {
   status?: string;
 
   @property({
-    type: 'array',
-    itemType: 'string',
+    type: 'string',
   })
-  localisation?: string[];
+  localisation?: string;
 
   @property({
     type: 'array',

@@ -2,18 +2,18 @@
     <div class="left-panel">
         <div class="sub-div" style="background-color: lightblue;">
             <H1>composant Info</H1>
-            <app-detail-info></app-detail-info>
+            <app-detail-info [crisis]="crisis"></app-detail-info>
         </div>
-        <div class="sub-div" style="background-color: lightgreen;">
-            <H1>composant documents</H1>
+        <div class="sub-div">
 
-            <app-fileupload [crisis_id]="crisis_id"></app-fileupload>
+            <app-fileupload [crisis]="crisis"></app-fileupload>
         </div>
         <div class="sub-div" style="background-color: lightcoral;">
             <H1>Composant Réunion</H1>
-
+            <app-meetings [crisis]="crisis"></app-meetings>
         </div>
     </div>
+
     <div class="right-panel" style="background-color: #EEEEEE;">
         <app-team [crisis_id]="crisis_id" (totalMembersEvent)="onTotalMembers($event)"></app-team>
     </div>

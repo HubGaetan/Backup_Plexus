@@ -1,5 +1,82 @@
-<p>fileupload works!</p>
-<div>
-    <input type="file" (change)="handleFileInput($event)" accept=".pdf,.doc,.docx,.txt" />
-    <button (click)="uploadFile()">Upload</button>
+<div class="container" style="flex:1;">
+    <div class="header">
+        <div class="header-left">
+            <i class="bx bx-file"></i>
+            <h3 class="text-secondary">Documents</h3>
+        </div>
+        <!-- <div style="flex:1;display: flex; justify-content:flex-end;">
+            <label class="custom-file-upload">
+                <i class="bx bx-cloud-upload"
+                    style="font-size: 25px;opacity: 1;align-items: center;justify-content: baseline;"></i>
+                <input type="file" (change)="handleFileInput($event)" accept=".pdf,.doc,.docx,.txt,.xls,.xlsx" multiple
+                    style="align-items: baseline;" />
+                Téléverser un fichier
+            </label>
+        </div> -->
+        <div style="flex:1;display: flex; justify-content:flex-end;">
+            <label class="custom-file-upload">
+                <input type="file" (change)="handleFileInput($event)" accept=".pdf,.doc,.docx,.txt,.xls,.xlsx"
+                    multiple />
+                <i class="bx bx-cloud-upload" style="font-size: 25px; margin-right: 5px;"></i>
+                Téléverser un fichier
+            </label>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr style="background-color: lightgrey;">
+                    <th>#</th>
+                    <th>Type de fichier</th>
+                    <th>Nom du fichier</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let file of crisis.pathToFiles; let i = index">
+                    <tr [style.background-color]="i % 2 === 0 ? 'lightgrey' : 'white'">
+                        <td>{{ i + 1 }}</td>
+                        <td><img [src]="getFileTypeImage(file)" alt="Type de fichier" style="width: 40px;" /></td>
+                        <td style="text-align: left;">{{ getFileNameWithoutExtension(file) }}</td>
+                        <td><button (click)="removeFile(i)">Supprimer</button></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
+
+
+<!-- <div class="container" style="flex:1;">
+    <div style="display:flex;">
+        <h5>Documents</h5>
+        <div>
+            <input type="file" (change)="handleFileInput($event)" accept=".pdf,.doc,.docx,.txt,.xls,.xlsx" />
+            <button (click)="uploadFile()">Upload</button>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr style="background-color: lightgrey;">
+                    <th>#</th>
+                    <th>Type de fichier</th>
+                    <th>Nom du fichier</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let file of crisis.pathToFiles; let i = index">
+                    <tr [style.background-color]="i % 2 === 0 ? 'lightgrey' : 'white'">
+                        <td>{{ i + 1 }}</td>
+                        <td><img [src]="getFileTypeImage(file)" alt="Type de fichier" /></td>
+                        <td>{{ getFileNameWithoutExtension(file) }}</td>
+                        <td><button (click)="removeFile(i)">Supprimer</button></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div> -->
