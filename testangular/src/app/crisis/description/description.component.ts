@@ -20,6 +20,7 @@ export class DescriptionComponent implements OnInit {
   totalMembers: number = 0;
   @Output() totalMembersEvent = new EventEmitter<number>();
   // @Input() crisis_id!: number;
+  @Input() crisis: crisismodel;
   constructor() {
     // console.log('CRISIS ID DESCRIPTION : ', this.crisis_id);
   }
