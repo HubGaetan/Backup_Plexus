@@ -11,3 +11,6 @@ export * from './incidentbook-members.controller';
 export * from './crisis-incidentbook.controller';
 export * from './incidentbook-crisis.controller';
 export * from './incidentbook.controller';
+export * from './meetings.controller';
+export * from './crisis-meetings.controller';
+export * from './meetings-crisis.controller';

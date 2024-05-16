@@ -13,7 +13,7 @@ export class ItemcrisisComponent {
   @Input() crisis: crisismodel;
   @Output() selectedCrisis = new EventEmitter();
   constructor() {
-    this.crisis = new crisismodel(0, '', '', '', '', '', '', '', [], []);
+    this.crisis = new crisismodel(0, '', '', '', '', '', '', '', '', []);
   }
 
 

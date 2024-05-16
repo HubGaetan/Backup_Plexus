@@ -1,0 +1,61 @@
+.table {
+    width: 100%;
+}
+
+.table th,
+.table td {
+    padding: 8px;
+    text-align: center;
+}
+
+// .custom-file-upload {
+//     border: 1px solid #ccc;
+//     display: inline-block;
+//     padding: 6px 12px;
+//     cursor: pointer;
+//     background-color: #2389bf;
+//     color: white;
+//     border-radius: 2px;
+//     align-items: baseline;
+//     justify-content: baseline;
+// }
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #2389bf;
+    color: white;
+    border-radius: 2px;
+}
+
+/* Masquer le texte indésirable dans l'input de type file */
+input[type="file"] {
+    visibility: hidden;
+    position: absolute;
+    top: -1000em;
+}
+
+
+.text-secondary {
+    color: #707e89;
+}
+
+.header {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.header-left {
+    display: flex;
+}
+
+
+.bx {
+    font-size: 30px;
+    opacity: 0.65;
+    align-items: baseline;
+}

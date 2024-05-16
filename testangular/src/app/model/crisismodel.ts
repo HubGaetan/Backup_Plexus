@@ -7,10 +7,10 @@ export class crisismodel {
     startdate: string;
     enddate: string;
     status: string;
-    localisation: string[];
+    localisation: string;
     pathToFiles: string[];
 
-    constructor(crisis_id = 0, title = '', pathToImage = '', objective = '', description = '', startdate = '', enddate = '', status = '', localisation = [], pathToFiles = []) {
+    constructor(crisis_id = 0, title = '', pathToImage = '', objective = '', description = '', startdate = '', enddate = '', status = '', localisation = '', pathToFiles = []) {
         this.crisis_id = crisis_id;
         this.title = title;
         this.pathToImage = pathToImage;

@@ -15,7 +15,7 @@ export class CrisisService {
 
   constructor(private http: HttpClient) {
 
-    this.crisis = new crisismodel(0, '', '', '', '', '', '', '', [], []);
+    this.crisis = new crisismodel(0, '', '', '', '', '', '', '', '', []);
   }
 
   getCrisislist(): Observable<crisismodel[]> {

@@ -1,103 +1,241 @@
-// import { Component, Input, OnInit } from '@angular/core';
-// import { crisismodel } from '../../model/crisismodel';
-
-// @Component({
-//   selector: 'app-fileupload',
-//   standalone: true,
-//   imports: [],
-//   templateUrl: './fileupload.component.html',
-//   styleUrl: './fileupload.component.scss'
-// })
-// export class FileuploadComponent implements OnInit {
-//   selectedFile: File | null = null;
-
-//   @Input() crisis_id: number;
-
-//   constructor() { }
-
-//   ngOnInit() {
-//     console.log("CRISIS NUMMMMMBER", this.crisis_id);
-//   }
-
-//   handleFileInput(event: Event) {
-//     const inputElement = event.target as HTMLInputElement;
-//     if (inputElement.files) {
-//       this.selectedFile = inputElement.files[0];
-//     }
-//   }
-
-//   uploadFile() {
-//     if (this.selectedFile) {
-//       // Effectuez l'envoi du fichier ici
-//       console.log('Fichier sélectionné : ', this.selectedFile);
-//     } else {
-//       console.log('Aucun fichier sélectionné.');
-//     }
-//   }
-// }
 import { Component, Input, OnInit } from '@angular/core';
 import { crisismodel } from '../../model/crisismodel';
 import { CrisisService } from '../crisis.service';
+import { CommonModule } from '@angular/common';
+import { IncidentbookService } from '../incidentbook.service';
+import { MembersService } from '../members.service';
+import { incidentbookmodel } from '../../model/incidentbookmodel';
 
 @Component({
   selector: 'app-fileupload',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './fileupload.component.html',
   styleUrl: './fileupload.component.scss'
 })
 export class FileuploadComponent implements OnInit {
   selectedFileName: string | null = null;
 
+  member_id: number =1;
   @Input() crisis_id: number;
+  @Input() crisis: crisismodel;
 
-  constructor(private crisisService: CrisisService) { }
-
-
+  constructor(private crisisService: CrisisService,private incidentbookService: IncidentbookService) { }
 
   ngOnInit(): void {
-    this.crisisService.getCrisisById(this.crisis_id).subscribe(crisis => {
-      console.log('CRISIS BEFORE1', crisis);
-      //   this.crisisService.updateCrisis(crisis, this.crisis_id).subscribe(() => {
-      //     console.log('CRISIS UPSTAS', crisis)
-      //     console.log('Nom du fichier enregistré avec succès dans la variable pathToFile de la crise.');
-      //   }, error => {
-      //     console.error('Erreur lors de la mise à jour de la crise :', error);
-      //   });
-    })
   }
-
 
   handleFileInput(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files) {
-      this.selectedFileName = inputElement.files[0].name;
+      const files = Array.from(inputElement.files);
+      for (const file of files) {
+        this.uploadFile(file);
+      }
     }
   }
 
-  uploadFile() {
-    if (this.selectedFileName) {
-      // Mettre à jour la variable pathToFile de la crise
-      console.log("SELECTED FILE", this.selectedFileName);
-      this.crisisService.getCrisisById(this.crisis_id).subscribe(crisis => {
-        console.log('CRISIS BEFORE', crisis);
-        if (this.selectedFileName) {
-          console.log('PATHHHHH', crisis.pathToFiles);
-          crisis.pathToFiles.push(this.selectedFileName);
-          console.log('PATHHHHH2', crisis);
+  uploadFile(file: File) {
+    const fileName = file.name;
+    if (!this.crisis.pathToFiles) {
+      this.crisis.pathToFiles = [];
+    }
+    this.crisis.pathToFiles.push(fileName);
 
-        }
-        // Mettre à jour la crise dans la base de données
-        this.crisisService.updateCrisis(crisis, this.crisis_id).subscribe(() => {
-          console.log('Nom du fichier enregistré avec succès dans la variable pathToFile de la crise.');
-        }, error => {
-          console.error('Erreur lors de la mise à jour de la crise :', error);
-        });
+    // Mettre à jour la crise dans la base de données
+    this.crisisService.updateCrisis(this.crisis, this.crisis.crisis_id).subscribe(() => {
+      console.log('Nom du fichier enregistré avec succès dans la variable pathToFile de la crise.');
+    }, error => {
+      console.error('Erreur lors de la mise à jour de la crise :', error);
+    });
+
+    this.member_id = Math.floor(Math.random() * 5) + 1;
+    const message = "le fichier " + fileName + " a été ajouté aux documents ressources";
+    const title = "Import d'un nouveau fichier";
+
+    this.incidentbookService.addIncident(message, title, true , this.crisis.crisis_id, this.member_id).subscribe({
+      next: (response) => { // Utilisation de l'objet d'observateur
+        console.log(message,title,this.member_id,this.crisis_id);
+      },
+      error: (error) => { alert('Problème lors de l\'ajout du message!'); }
+    });
+
+
+
+  }
+
+  getFileTypeImage(file: string): string {
+    const extension = file.split('.').pop()?.toLowerCase();
+    switch (extension) {
+      case 'pdf':
+        return 'assets/images/pdf-icon.svg';
+      case 'xls':
+      case 'xlsx':
+        return 'assets/images/excel-icon.svg';
+      case 'doc':
+      case 'docx':
+      case 'txt':
+        return 'assets/images/word-icon.svg';      
+        
+      default:
+        return 'assets/images/default-icon.png'; // Image par défaut pour les autres types de fichiers
+    }
+  }
+
+  getFileNameWithoutExtension(file: string): string {
+    return file.split('.').slice(0, -1).join('.');
+  }
+
+  removeFile(index: number) {
+    if (this.crisis.pathToFiles) {
+      this.crisis.pathToFiles.splice(index, 1);
+
+      // Mettre à jour la crise dans la base de données
+      this.crisisService.updateCrisis(this.crisis, this.crisis.crisis_id).subscribe(() => {
+        console.log('Fichier supprimé avec succès de la variable pathToFile de la crise.');
       }, error => {
-        console.error('Erreur lors de la récupération de la crise :', error);
+        console.error('Erreur lors de la mise à jour de la crise :', error);
       });
-    } else {
-      console.log('Aucun fichier sélectionné.');
     }
   }
 }
+
+
+// import { Component, Input, OnInit } from '@angular/core';
+// import { crisismodel } from '../../model/crisismodel';
+// import { CrisisService } from '../crisis.service';
+// import { CommonModule } from '@angular/common';
+
+// @Component({
+//   selector: 'app-fileupload',
+//   standalone: true,
+//   imports: [CommonModule],
+//   templateUrl: './fileupload.component.html',
+//   styleUrl: './fileupload.component.scss'
+// })
+// export class FileuploadComponent implements OnInit {
+//   selectedFileName: string | null = null;
+
+//   @Input() crisis_id: number;
+//   @Input() crisis: crisismodel;
+
+//   constructor(private crisisService: CrisisService) { }
+
+//   ngOnInit(): void {
+//   }
+
+//   handleFileInput(event: Event) {
+//     const inputElement = event.target as HTMLInputElement;
+//     if (inputElement.files) {
+//       this.selectedFileName = inputElement.files[0].name;
+//     }
+//   }
+
+//   uploadFile() {
+//     if (this.selectedFileName) {
+//       if (!this.crisis.pathToFiles) {
+//         this.crisis.pathToFiles = [];
+//       }
+//       this.crisis.pathToFiles.push(this.selectedFileName);
+
+//       // Mettre à jour la crise dans la base de données
+//       this.crisisService.updateCrisis(this.crisis, this.crisis.crisis_id).subscribe(() => {
+//         console.log('Nom du fichier enregistré avec succès dans la variable pathToFile de la crise.');
+//       }, error => {
+//         console.error('Erreur lors de la mise à jour de la crise :', error);
+//       });
+//     }
+//   }
+
+//   getFileTypeImage(file: string): string {
+//     const extension = file.split('.').pop()?.toLowerCase();
+//     switch (extension) {
+//       case 'pdf':
+//         return 'assets/images/pdf-icon.svg';
+//       case 'xls':
+//       case 'xlsx':
+//         return 'assets/images/excel-icon.svg';
+//       case 'doc':
+//       case 'docx':
+//       case 'txt':
+//         return 'assets/images/word-icon.svg';      
+        
+//       default:
+//         return 'assets/images/default-icon.png'; // Image par défaut pour les autres types de fichiers
+//     }
+//   }
+
+//   getFileNameWithoutExtension(file: string): string {
+//     return file.split('.').slice(0, -1).join('.');
+//   }
+
+//   removeFile(index: number) {
+//     if (this.crisis.pathToFiles) {
+//       this.crisis.pathToFiles.splice(index, 1);
+
+//       // Mettre à jour la crise dans la base de données
+//       this.crisisService.updateCrisis(this.crisis, this.crisis.crisis_id).subscribe(() => {
+//         console.log('Fichier supprimé avec succès de la variable pathToFile de la crise.');
+//       }, error => {
+//         console.error('Erreur lors de la mise à jour de la crise :', error);
+//       });
+//     }
+//   }
+// }
+
+
+
+// // import { Component, Input, OnInit } from '@angular/core';
+// // import { crisismodel } from '../../model/crisismodel';
+// // import { CrisisService } from '../crisis.service';
+
+// // @Component({
+// //   selector: 'app-fileupload',
+// //   standalone: true,
+// //   templateUrl: './fileupload.component.html',
+// //   styleUrl: './fileupload.component.scss'
+// // })
+// // export class FileuploadComponent implements OnInit {
+// //   selectedFileName: string | null = null;
+
+// //   @Input() crisis_id: number;
+// //   @Input() crisis: crisismodel;
+
+// //   constructor(private crisisService: CrisisService) { }
+
+
+
+// //   ngOnInit(): void {
+// //   }
+
+
+// //   handleFileInput(event: Event) {
+// //     const inputElement = event.target as HTMLInputElement;
+// //     if (inputElement.files) {
+// //       this.selectedFileName = inputElement.files[0].name;
+// //     }
+// //   }
+
+// //   uploadFile() {
+// //     if (this.selectedFileName) {
+ 
+// //       if (this.crisis.pathToFiles) {
+// //         this.crisis.pathToFiles.push(this.selectedFileName);
+// //       }
+// //       else {
+// //         this.crisis.pathToFiles = [];
+// //         this.crisis.pathToFiles.push(this.selectedFileName);
+// //       }
+
+// //       //     // Mettre à jour la crise dans la base de données
+// //       this.crisisService.updateCrisis(this.crisis, this.crisis.crisis_id).subscribe(() => {
+// //         console.log('Nom du fichier enregistré avec succès dans la variable pathToFile de la crise.');
+// //       }, error => {
+// //         console.error('Erreur lors de la mise à jour de la crise :', error);
+// //       });
+// //     }
+// //   }
+
+
+// // }
 
