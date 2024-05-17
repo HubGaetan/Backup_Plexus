@@ -1,28 +1,28 @@
 <li class="list-group-item" (click)="selectCrisis()" style="margin-bottom: 10px;">
-    <div class="row">
         <div class="img">
             <!-- Image -->
-            <img src="{{ crisis.pathToImage }}" class="img-fluid" alt="image" style="width:92px;height: 92px;">
+            <img src="{{ crisis.pathToImage }}" class="img-fluid" alt="image" style="width:100px;height: 100px;">
         </div>
         <div class="detailcrisis">
             <!-- Titre -->
-            <h4>{{ crisis.title }}</h4>
+            <h2>{{ crisis.title }}</h2>
             <!-- Description -->
             <!-- <p>{{ crisis.objective }}</p> -->
-            <h5>{{ crisis.objective }}</h5>
+            <h3>{{ crisis.objective }}</h3>
             <p class="description">{{ crisis.description }}</p>
-
         </div>
         
-        <div class="statuscrisis">
+        <div class="detailstatuscrisis">
             <!-- Petit texte -->
-            <div class="crisisstatus">
-                <h5>Status de la crise : </h5>
-                <p style="color: red;"> {{ crisis.status
+            <div class="statuscrisis">
+                <h3>Status de la crise : </h3>
+                <p style="color: red; margin-left: 5px;"> {{ crisis.status
                     }} </p>
             </div>
-            <p> Début de crise : {{ crisis.startdate| date: 'dd/MM/yyyy' }} </p>
-            <p> localisée à : {{crisis.localisation}} </p>
+            <div>
+                <p> Début de crise : {{ crisis.startdate| date: 'dd/MM/yyyy' }} </p>
+                <p> localisée à : {{crisis.localisation}} </p>
+            </div>
         </div>
         <div class="participants-meeting">
             <!-- Petit texte -->
@@ -30,5 +30,4 @@
             <p *ngIf="crisis.pathToFiles"> {{crisis.pathToFiles.length}} documents </p>
             <p> Z réunions </p>
         </div>
-    </div>
 </li>

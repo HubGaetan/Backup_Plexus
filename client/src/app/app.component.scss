@@ -1,14 +1,3 @@
-.bg-g {
-    background-color: #eeeeee;
-    padding-top: 10px;
-    /* Espace pour la navbar */
-    max-width: 95%;
-    margin: 0 auto;
-    /* Centrer horizontalement */
-    // padding-top: 120px;
-    /* Espace pour la navbar-menu */
-}
-
 .navbar-custom {
     background-color: #2389bf;
     height: 70px;
@@ -17,10 +6,6 @@
     /* Centrer verticalement le contenu */
     // padding-left: 12px;
     // position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
 }
 
 .img-fluid2 {
@@ -41,7 +26,6 @@
 }
 
 .navbar-menu p {
-    margin: 0;
     font-size: 18px;
     font-family: sans-serif;
     font-weight: 600;
