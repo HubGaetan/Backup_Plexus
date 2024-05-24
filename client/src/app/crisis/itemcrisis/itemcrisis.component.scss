@@ -1,28 +1,23 @@
 .list-group-item {
+    background-color: white;
     display: flex;
-    justify-content: center;
+    height: 200px;
+    width: 100%;
+    padding: 10px;
+    overflow: hidden;
     border-radius: 5px;
 }
 
-.row {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items:center;
-    min-height: 200px;
-    max-height: 200px;
-    min-width: 100%;
-    max-width: 100%;
-    padding: 0px;
-    overflow: hidden;
+h2 {
+    font-size: 20px;
 }
 
-.img-fuild {
-    width: 100%;
-    height: 200px;
+h3 {
+    font-size: 16px;
 }
 
 p {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .img {
@@ -35,13 +30,9 @@ p {
 
 .detailcrisis {
     width:40%;
-    height: 200px;
+    max-height: 200px;
     color:#2389bf;
     padding: 10px 30px 10px 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
 }
 
 .description {
@@ -53,26 +44,30 @@ p {
     color: #3f3f3f;
 }
 
-.statuscrisis {
-    display:flex;
+.detailstatuscrisis {
+    display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 25%;
-    height: 200px;
+    max-height: 200px;
     padding: 10px 30px 10px 30px;
     color:#2389bf;
     border-left: 1px solid #838c91;
 
 }
 
-.crisisstatus {
+.statuscrisis {
     display:flex;
+    align-items: center;
     font-size: 20px;
 }
 
 .participants-meeting {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 25%;
-    height: 200px;
+    max-height: 200px;
     padding: 10px 10px 10px 30px;
     color:#2389bf;
     border-left: 1px solid #838c91;
