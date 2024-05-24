@@ -1,19 +1,19 @@
 <div class="row">
 
-    <div class="d-flex justify-content-between align-items-center">
-        <h4 style="margin-bottom: 2px;"> Gestion de crise </h4>
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ms-auto">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Plexus</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Gestion de crise</li>
+    <div class="gestioncrisis-nav">
+        <h2> Gestion de crise </h2>
+        <nav>
+            <ol class="navarianeline">
+                <li><a href="#">Plexus</a></li>
+                <li>Gestion de crise</li>
             </ol>
         </nav>
     </div>
-    <div class="d-flex justify-content-end align-items-center">
-        <button (click)="openModal()" class="btn btn-primary" style="color: white; background-color: #2389bf;">Ajouter
+    <div class="addcrisis">
+        <button (click)="openModal()" class="addcrisisbutton">Ajouter
             une Nouvelle crise <i class="bx bx-plus-circle"></i></button>
     </div>
-    <div style="padding-top: 20px;">
+    <div>
         <app-listcrisis (selectedCrisis)="selectCrisis($event)" [crisislist]="crisislist"></app-listcrisis>
     </div>
 </div>
@@ -24,31 +24,36 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2>Création d'une nouvelle crise</h2>
-            <span class="close" (click)="closeModal()"><i class="bx bx-x"></i></span>
+            <i class="close" (click)="closeModal()" class="bx bx-x"></i>
         </div>
         <div class="modal-body">
-            <h5>Voulez-vous vraiment ajouter une nouvelle crise ?</h5>
-        </div>
-        <div>
-            <form #crisisform="ngForm">
+            <h3 style="margin-top: 0;">Voulez-vous vraiment ajouter une nouvelle crise ?</h3>
+            <form #crisisform="ngForm" class="addcrissisdetail">
+            <div class="modal-detail">
                 <label for="title"> Titre </label>
                 <input id="title" type="text" ngModel name="title" class="form-control">
-
+            </div>
+            <div class="modal-detail" class="testmargin">
                 <label for="pathToImage"> Chemin d'accès au fichier image </label>
                 <input id="pathToImage" type="text" ngModel name="pathToImage" class="form-control">
-
+            </div>    
+            <div class="modal-detail">
                 <label for="objective"> Objectifs </label>
                 <input id="objective" type="text" ngModel name="objective" class="form-control">
-
+            </div>
+            <div class="modal-detail">
                 <label for="description"> Description </label>
                 <input id="description" type="text" ngModel name="description" class="form-control">
-
+            </div>
+            <div class="modal-detail">
                 <label for="startdate"> Date de debut </label>
                 <input id="startdate" type="date" ngModel name="startdate" class="form-control">
-
+            </div>
+            <div class="modal-detail">
                 <label for="enddate"> Date de fin</label>
                 <input id="enddate" type="date" ngModel name="enddate" class="form-control">
-
+            </div>
+            <div class="modal-detail" class="testmargin">
                 <label for="status"> Status de la crise </label>
                 <select class="form-select" aria-label="Status de la crise" name="status" id="status"
                     [(ngModel)]="crisisform.value.status">
@@ -57,16 +62,15 @@
                     <option [ngValue]="'en cours'">En cours</option>
                     <option [ngValue]="'terminée'">Terminée</option>
                 </select>
-
+            </div>
+            <div class="modal-detail" class="testmargin">
                 <label for="localisation"> Localisations: </label>
                 <input id="localisation" type="text" ngModel name="localisation" class="form-control">
-
-
-                <button class="btn btn-secondary" (click)="closeModal()">Annuler</button>
-                <button (click)="addCrisis(crisisform)" class="btn btn-primary">Enregistrer</button>
+            </div>
+            <div class="positionbtn">
+                <button class="btn-annuler" (click)="closeModal()">Annuler</button>
+                <button class="btn-enregistrer" (click)="addCrisis(crisisform)">Enregistrer</button>
+            </div>
             </form>
-        </div>
-        <div class="modal-footer">
-        </div>
     </div>
 </div>
