@@ -1,3 +1,279 @@
-<p>meetings works!</p>
-{{crisis.crisis_id}}
-{{meetingslist|json}}
+<div class="container">
+    <!-- ... existing HTML content ... -->
+    <div class="header">
+        <div class="header-left">
+            <i class="bx bx-calendar"></i>
+            <h3 class="text-secondary">Réunions</h3>
+        </div>
+        <div style="flex:1;display: flex; justify-content:flex-end;">
+            <button class="custom-button" (click)="openModal()"> <i class="bx bx-plus-circle"
+                    style="font-size: 25px; margin-right: 5px;"></i>
+                Ajouter une Réunion </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngFor="let meeting of paginatedMeetings" class="card bg-primary text-white mb-4"
+                style="justify-content: space-between;">
+                <div class="card-body" style="justify-content: space-between;">
+                    <div class="date-card">
+                        <div class="date-part1">
+                            <h2>{{ convertDate(meeting.meetingdate)[0] }}</h2>
+                        </div>
+                        <div class="date-part2">{{ convertDate(meeting.meetingdate)[1] }}</div>
+                        <div class="date-part3">{{ convertDate(meeting.meetingdate)[2] }}</div>
+                    </div>
+                    <div class="info">
+                        <h5 class="card-title">{{ meeting.title }}</h5>
+                        <p class="card-text"><i class="bx bx-time"
+                                style="font-size: 15px; margin-right: 5px;opacity: 1;"></i>{{
+                            meeting.starttime }} - {{
+                            meeting.endtime }}</p>
+                        <div style="display:flex;">
+                            <p><i class="bx bx-location-plus"
+                                    style="font-size: 15px; margin-right: 5px;opacity: 1;"></i>{{meeting.localisation}}
+                            </p>
+                            <div *ngIf="meeting.isvisio">
+                                <p><i class="bx bx-camera-movie"
+                                        style="font-size: 15px; margin-left: 5px;margin-right: 5px; opacity: 1;"></i>Visioconférence
+                                    disponible</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="true">
+                                Modifier
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" (click)="openModal(true, meeting)">Modifier</a></li>
+                                <li><a class="dropdown-item" (click)="deleteModal(meeting.id)">Supprimer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+                <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+<!-- Add/Update Meeting Modal -->
+<div class="modal" [style.display]="modalOpen ? 'block' : 'none'">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>{{ isEditMode ? 'Modifier la réunion' : 'Ajouter une réunion' }}</h2>
+            <span class="close" (click)="closeModal()"><i class="bx bx-x"></i></span>
+        </div>
+        <div class="modal-body">
+            <form #meetingform="ngForm">
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    <input id="title" type="text" [(ngModel)]="selectedMeeting.title" name="title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="meetingdate">Date de la réunion</label>
+                    <input id="meetingdate" type="date" [(ngModel)]="selectedMeeting.meetingdate" name="meetingdate"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="starttime">Heure de début</label>
+                    <input id="starttime" type="time" [(ngModel)]="selectedMeeting.starttime" name="starttime"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endtime">Heure de fin</label>
+                    <input id="endtime" type="time" [(ngModel)]="selectedMeeting.endtime" name="endtime"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="localisation">Localisation</label>
+                    <input id="localisation" type="text" [(ngModel)]="selectedMeeting.localisation" name="localisation"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="isvisio">Visioconférence</label>
+                    <input id="isvisio" type="checkbox" [(ngModel)]="selectedMeeting.isvisio" name="isvisio"
+                        class="form-check-input">
+                </div>
+                <input type="hidden" ngModel name="crisisId" [value]="crisis.crisis_id">
+                <button class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+                <button (click)="isEditMode ? updateMeeting(meetingform) : addMeeting(meetingform)"
+                    class="btn btn-primary">{{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete Meeting Modal -->
+<div class="modal" [style.display]="deletemodalOpen ? 'block' : 'none'">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Confirmation de suppression</h2>
+            <span class="close" (click)="closedeleteModal()"><i class="bx bx-x"></i></span>
+        </div>
+        <div class="modal-body">
+            <p>Êtes-vous sûr de vouloir supprimer cette réunion ?</p>
+            <button class="btn btn-secondary" (click)="closedeleteModal()">Annuler</button>
+            <button class="btn btn-danger" (click)="deleteMeeting(iddel)">Supprimer</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- <div class="container">
+    <div class="header">
+        <div class="header-left">
+            <i class="bx bx-calendar"></i>
+            <h3 class="text-secondary">Réunions</h3>
+        </div>
+        <div style="flex:1;display: flex; justify-content:flex-end;">
+            <button class="custom-button" (click)="openModal()"> <i class="bx bx-plus-circle"
+                    style="font-size: 25px; margin-right: 5px;"></i>
+                Ajouter une Réunion </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngFor="let meeting of paginatedMeetings" class="card bg-primary text-white mb-4"
+                style="justify-content: space-between;">
+                <div class="card-body" style="justify-content: space-between;">
+                    <div class="date-card">
+                        <div class="date-part1">
+                            <h2>{{ convertDate(meeting.meetingdate)[0] }}</h2>
+                        </div>
+                        <div class="date-part2">{{ convertDate(meeting.meetingdate)[1] }}</div>
+                        <div class="date-part3">{{ convertDate(meeting.meetingdate)[2] }}</div>
+                    </div>
+                    <div class="info">
+                        <h5 class="card-title">{{ meeting.title }}</h5>
+                        <p class="card-text">{{ meeting.starttime }} - {{ meeting.endtime }}</p>
+                        <p>{{meeting.localisation}}</p>
+                        <div *ngIf="meeting.isvisio">
+                            <p>Visioconférence disponible</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="true">
+                                Modifier
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" (click)="openModal(meeting)">Modifier</a></li>
+                                <li><a class="dropdown-item" (click)="deleteModal(meeting.id)">Supprimer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+                <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+
+<div class="modal" [style.display]="modalOpen ? 'block' : 'none'">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>{{ isEditMode ? 'Modifier la réunion' : 'Ajouter une réunion' }}</h2>
+            <span class="close" (click)="closeModal()"><i class="bx bx-x"></i></span>
+        </div>
+        <div class="modal-body">
+            CAACAC : {{selectedMeeting?.title}}
+            <form #meetingform="ngForm">
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    <input id="title" type="text" ngModel name="title" class="form-control"
+                    [(ngModel)]="selectedMeeting?.title">
+                </div>
+                <div class="form-group">
+                    <label for="meetingdate">Date de la réunion</label>
+                    <input id="meetingdate" type="date" ngModel name="meetingdate" class="form-control"
+                        [value]="selectedMeeting?.meetingdate">
+                </div>
+                <div class="form-group">
+                    <label for="starttime">Heure de début</label>
+                    <input id="starttime" type="time" ngModel name="starttime" class="form-control"
+                        [value]="selectedMeeting?.starttime">
+                </div>
+                <div class="form-group">
+                    <label for="endtime">Heure de fin</label>
+                    <input id="endtime" type="time" ngModel name="endtime" class="form-control"
+                        [value]="selectedMeeting?.endtime">
+                </div>
+                <div class="form-group">
+                    <label for="localisation">Localisation</label>
+                    <input id="localisation" type="text" ngModel name="localisation" class="form-control"
+                        [value]="selectedMeeting?.localisation">
+                </div>
+                <div class="form-group">
+                    <label for="isvisio">Visioconférence</label>
+                    <input id="isvisio" type="checkbox" ngModel name="isvisio" class="form-check-input"
+                        [checked]="selectedMeeting?.isvisio">
+                </div>
+                <input type="hidden" ngModel name="crisisId" [value]="crisis.crisis_id">
+                <button class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+                <button (click)="isEditMode ? updateMeeting(meetingform) : addMeeting(meetingform)"
+                    class="btn btn-primary">{{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [style.display]="deletemodalOpen ? 'block' : 'none'">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Suppression de la réunion</h2>
+            <span class="close" (click)="closedeleteModal()"><i class="bx bx-x"></i></span>
+        </div>
+        <div class="modal-body">
+            <h5>Voulez-vous vraiment supprimer cette réunion ?</h5>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="closedeleteModal()">Annuler</button>
+            <button class="btn btn-danger" (click)="deleteMeeting(this.iddel)">Supprimer</button>
+        </div>
+    </div>
+</div>
+ -->
