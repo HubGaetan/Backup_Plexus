@@ -21,7 +21,7 @@
                 <div class="columnbanner">
                     <span style="display: flex;">
                         <i class="bx bx-calendar"></i>
-                        <p> Y Réunions</p>
+                        <p> {{numberMeetings}} Réunions</p>
                     </span>
                 </div>
                 <div class="columnbanner">
@@ -44,22 +44,28 @@
             <h5>Status de la crise : </h5>
             <p style="color: red;margin-left: 5px;font-weight: bold;"> {{crisis.status}} </p>
         </span>
-        <p> Début de crise : {{ crisis.startdate | date: 'dd/MM/yyyy HH:mm' }} </p>
+        <p> Début de crise : {{ crisis.startdate | date: 'dd/MM/yyyy' }} </p>
         <p> localisée à : {{crisis.localisation}} </p>
     </div>
     <div class="col-1" style="width: 5px;">
         <!-- Séparateur vertical -->
         <div class="vertical-separator"></div>
     </div>
-    <!-- <div class="col" style="padding-left: 10px;">
-        
-        <p> X parcicipants</p>
-        <p> Y documents </p>
-        <p> Z réunions </p>
-
-    </div> -->
 
     <div class="col">
+        <div *ngIf="crisis.status=='en préparation'" class="launchbutton">
+            <button class="button-launch" (click)="launchCrisis()">Déclencher la crise <i class="bx bx-caret-right"
+                    style="font-size: 30px;"></i></button>
+
+        </div>
+        <div *ngIf="crisis.status=='en cours'" class="stopbutton">
+            <button class="button-stop" (click)="stopCrisis()">Arrêter la crise<i class="bx bx-x"
+                    style="font-size: 30px;"></i></button>
+        </div>
+        <div *ngIf="crisis.status=='terminée'" class="launchbutton">
+            <button class="button-launch" (click)="launchCrisis()">Relancer la crise<i class="bx bx-caret-right"
+                    style="font-size: 30px;"></i></button>
+        </div>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="true">
@@ -93,17 +99,7 @@
     </div>
 </div>
 
-<!-- 
-crisis_id	
-title	
-pathToImage	
-objective	
-description	
-startdate	
-enddate	
-status	
-localisation	
-pathToFiles -->
+
 
 <div class="modal" [style.display]="modalUpdate ? 'block' : 'none'">
     <div class="modal-content">
@@ -124,7 +120,7 @@ pathToFiles -->
             <label for="objective"> Objectif :</label>
             <input id="objective" type="text" ngModel name="objective" class="form-control"
                 [(ngModel)]="crisis.objective">
-            <label for="description"> Objectif :</label>
+            <label for="description"> Description :</label>
             <input id="description" type="text" ngModel name="description" class="form-control"
                 [(ngModel)]="crisis.description">
 
