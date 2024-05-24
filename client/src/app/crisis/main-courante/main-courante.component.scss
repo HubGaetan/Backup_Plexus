@@ -134,3 +134,7 @@
     margin-right: 10px;
     margin-left: 10px;
 }
+
+::ng-deep angular-editor .angular-editor-textarea {
+    text-align: left;
+}

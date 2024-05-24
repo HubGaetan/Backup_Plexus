@@ -1,5 +1,5 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
-import {Crisis} from './crisis.model';
+import { Entity, model, property, belongsTo } from '@loopback/repository';
+import { Crisis } from './crisis.model';
 
 @model()
 export class Meetings extends Entity {
@@ -29,6 +29,18 @@ export class Meetings extends Entity {
     type: 'string',
   })
   endtime?: string;
+
+
+  @property({
+    type: 'string',
+  })
+  localisation?: string;
+
+
+  @property({
+    type: 'boolean',
+  })
+  isvisio?: boolean;
 
   @belongsTo(() => Crisis)
   crisisId: number;

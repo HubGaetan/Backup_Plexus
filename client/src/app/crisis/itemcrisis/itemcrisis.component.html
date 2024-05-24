@@ -13,6 +13,7 @@
         </div>
         
         <div class="detailstatuscrisis">
+
             <!-- Petit texte -->
             <div class="statuscrisis">
                 <h3>Status de la crise : </h3>
@@ -24,10 +25,31 @@
                 <p> localisée à : {{crisis.localisation}} </p>
             </div>
         </div>
-        <div class="participants-meeting">
-            <!-- Petit texte -->
-            <p> X participants</p>
-            <p *ngIf="crisis.pathToFiles"> {{crisis.pathToFiles.length}} documents </p>
+        <!-- <div class="participants-meeting">
+        
+            <p *ngIf="numberMember"> {{numberMember}} Participants </p>
+            <p *ngIf="crisis.pathToFiles"> {{crisis.pathToFiles.length}} Documents </p>
             <p> Z réunions </p>
+        </div> -->
+        <div class="participants-meeting">
+            <!-- Afficher le nombre de participants ou un message si aucun participant -->
+            <p *ngIf="numberMember; else noParticipants"> {{numberMember}} Participants </p>
+            <ng-template #noParticipants>
+                <p>Il n'y a pas de participants</p>
+            </ng-template>
+
+            <!-- Afficher le nombre de documents ou un message si aucun document -->
+            <p *ngIf="crisis.pathToFiles && crisis.pathToFiles.length > 0; else noDocuments">
+                {{crisis.pathToFiles.length}} Documents
+            </p>
+            <ng-template #noDocuments>
+                <p>Il n'y a pas de documents</p>
+            </ng-template>
+
+            <!-- Afficher le nombre de réunions (remplacer 'Z' par la variable appropriée si disponible) -->
+            <p *ngIf="numberMeetings; else noMeetings"> {{numberMeetings}} Réunions </p>
+            <ng-template #noMeetings>
+                <p>Il n'y a pas de réunions</p>
+            </ng-template>
         </div>
 </li>
