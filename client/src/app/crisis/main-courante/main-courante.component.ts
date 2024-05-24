@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TimelineModule } from 'primeng/timeline';
@@ -33,6 +34,69 @@ export class MainCouranteComponent implements OnInit {
   public member_id: number; // Génération d'un nombre aléatoire entre 1 et 5 pour memberId
 
   messagesCrisisWithMemberName: { crisisId: number, membersId: number, title: string, content: string, messagedate: string, isevent: boolean, memberName: string, initials: string }[] = [];
+
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '9rem',
+    minHeight: '9rem',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    defaultFontSize: '12',
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' }
+    ],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      [
+        "strikeThrough",
+        "subscript",
+        "superscript",
+        "indent",
+        "outdent",
+        "insertUnorderedList",
+        "insertOrderedList",
+        "heading",
+      ],
+      [
+        "customClasses",
+        "link",
+        "unlink",
+        "insertImage",
+        "insertVideo",
+        "insertHorizontalRule",
+        "removeFormat"
+      ]
+    ]
+  };
 
 
   constructor(private incidentbookService: IncidentbookService, private memberService: MembersService) { }
@@ -78,7 +142,7 @@ export class MainCouranteComponent implements OnInit {
       },
       error: (error) => { alert('Problème de récupération des messages'); }
     }
-    )
+    );
 
     this.incidentbookService.getIncidentBookByCrisisId(this.crisis_id).subscribe({
       next: (messages) => { // Utilisation de l'objet d'observateur
@@ -89,8 +153,6 @@ export class MainCouranteComponent implements OnInit {
       },
       error: (error) => { alert('Problème de récupération des messages'); }
     });
-
-
 
   }
 

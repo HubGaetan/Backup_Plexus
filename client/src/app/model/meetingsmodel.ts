@@ -4,15 +4,19 @@ export class meetingsmodel {
     meetingdate: string;
     starttime: string;
     endtime: string;
+    localisation: string;
+    isvisio: boolean;
     crisisId: number;
 
 
-    constructor(crisis_id = 0, title = '', meetingdate = '', starttime = '', endtime = '', crisisId = 0) {
-        this.id = crisis_id;
+    constructor(id = 0, title = '', meetingdate = '', starttime = '', endtime = '', localisation = '', isvisio = false, crisisId = 0) {
+        this.id = id;
         this.title = title;
         this.meetingdate = meetingdate;
         this.starttime = starttime;
         this.endtime = endtime;
+        this.localisation = localisation;
+        this.isvisio = isvisio;
         this.crisisId = crisisId;
     }
 

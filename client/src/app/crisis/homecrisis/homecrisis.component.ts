@@ -42,7 +42,13 @@ export class HomecrisisComponent implements OnInit {
   loadData(): void {
     this.crisisService.getCrisislist().subscribe({
       next: (crisislist) => { // Utilisation de l'objet d'observateur
+        console.log(crisislist);
+        crisislist.sort((a, b) => {
+          return b.crisis_id - a.crisis_id;
+        });
+        console.log(crisislist);
         this.crisislist = crisislist;
+        console.log(this.crisislist);
       },
       error: (error) => { alert('Problème de récupération des données depuis l\'API'); }
     });
@@ -59,12 +65,12 @@ export class HomecrisisComponent implements OnInit {
 
   addCrisis(form: NgForm) {
     console.log('FORM NIA', form.value);
-    if (form.value.startdate === '') {
-      form.value.startdate = new Date().toISOString().split('T')[0];
-    }
-    if (form.value.enddate === '') {
-      form.value.enddate = new Date().toISOString().split('T')[0];
-    }
+    // if (form.value.startdate === '') {
+    //   form.value.startdate = new Date().toISOString().split('T')[0];
+    // }
+    // if (form.value.enddate === '') {
+    //   form.value.enddate = new Date().toISOString().split('T')[0];
+    // }
     console.log('FORM NIA', form.value);
 
     this.crisisService.addCrisis(form.value).subscribe({

@@ -1,0 +1,154 @@
+.header {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.header-left {
+    display: flex;
+}
+
+.dropdown {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 0px;
+    justify-content: center;
+
+}
+
+.dropdown-toggle {
+    background-color: white;
+    color: #2389bf;
+    border-radius: 5px;
+    border: 0px;
+}
+
+.custom-button {
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #2389bf;
+    color: white;
+    border-radius: 2px;
+}
+
+.text-secondary {
+    color: #707e89;
+}
+
+
+.bx {
+    font-size: 30px;
+    opacity: 0.65;
+    align-items: baseline;
+}
+
+.card-body {
+    display: flex;
+    background-color: #2389bf;
+    justify-content: space-around;
+}
+
+.card-text {
+    margin-bottom: 5px;
+}
+
+.date-card {
+    height: 92px;
+    width: 68px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 5px;
+    /* Alignement vertical */
+}
+
+.date-part1 {
+
+    margin-bottom: 1px;
+    margin-top: 3px;
+    font-size: 20px;
+    height: 35px;
+    font-weight: bold;
+    color: #2389bf;
+    /* Marge entre chaque partie de la date */
+}
+
+
+.date-part2 {
+
+    margin-bottom: 1px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2389bf;
+
+    /* Marge entre chaque partie de la date */
+}
+
+.date-part3 {
+    margin-bottom: 1px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2389bf;
+    /* Marge entre chaque partie de la date */
+}
+
+.info {
+    margin-left: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    margin-top: 10%;
+    width: 50%;
+    border: 1px solid #888;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.modal-header {
+    background-color: #2389bf;
+    color: white;
+    padding: 10px;
+    position: relative;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 10px;
+    text-align: right;
+}
